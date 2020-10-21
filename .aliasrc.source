@@ -1,4 +1,3 @@
-
 # this will load .aliasrc file in some directory
 load_aliases() {
   while IFS='=' read key val
@@ -7,6 +6,7 @@ load_aliases() {
   done
 }
 
+# unload aliases
 unload_aliases() {
   while IFS='=' read key val
   do
@@ -24,6 +24,7 @@ aliases() {
   fi
 }
 
+# load aliases on initial load
 load_aliases < "$HOME/.aliasrc"
 [ -e "${PWD}/.aliasrc" ] && load_aliases < "${PWD}/.aliasrc"
 
