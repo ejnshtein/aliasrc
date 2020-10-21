@@ -1,0 +1,31 @@
+
+# this will load .aliasrc file in some directory
+load_aliases() {
+  while IFS='=' read key val
+  do
+    alias "${key}"="${val}"
+  done
+}
+
+unload_aliases() {
+  while IFS='=' read key val
+  do
+    unalias "${key}" 2>/dev/null
+  done
+}
+
+aliases() {
+  if [ "$PWD" != "$OLDPWD" ]; then # when directory changes unload old aliases
+    [ -e "${OLDPWD}/.aliasrc" ] && unload_aliases < "${OLDPWD}/.aliasrc"
+  fi
+  [ -e "~/.aliasrc" ] && load_aliases < "~/.aliasrc" # load global aliases if present
+  if [ "$PWD" != "$OLDPWD" ]; then # when directory changes load new aliases
+    [ -e "${PWD}/.aliasrc" ] && load_aliases < "${PWD}/.aliasrc"
+  fi
+}
+
+load_aliases < "$HOME/.aliasrc"
+[ -e "${PWD}/.aliasrc" ] && load_aliases < "${PWD}/.aliasrc"
+
+[ ${ZSH_VERSION} ] && precmd() { aliases }
+[ ${BASH_VERSION} ] && PROMPT_COMMAND=aliases
