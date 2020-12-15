@@ -9,3 +9,5 @@ In short:
 - You can still use global aliases, they will be reloaded if you go to some directory in console. Create `.aliasrc` in your user root folder (like `~/.aliasrc`) and fill it with key=value aliases.
 
 To use this script copy code from [.aliasrc.source](.aliasrc.source) file to your `.bashrc` or `.zshrc` file in you system. THAT'S IT.
+
+>NOTE: Don't forget to add blank line at the end of `.aliasrc` file. It won't work without it. 
