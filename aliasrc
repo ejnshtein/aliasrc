@@ -19,7 +19,7 @@ aliases() {
     [ -e "${OLDPWD}/.aliasrc" ] && unload_aliases < "${OLDPWD}/.aliasrc"
   fi
   [ -e "~/.aliasrc" ] && load_aliases < "~/.aliasrc" # load global aliases if present
-  if [ "$PWD" != "$OLDPWD" ]; then # when directory changes load new aliases
+  if [ "$PWD" != "$OLDPWD" -a "$PWD" != "$HOME" ]; then # when directory changes load new aliases, skip if already in home directory
     [ -e "${PWD}/.aliasrc" ] && load_aliases < "${PWD}/.aliasrc"
   fi
 }
